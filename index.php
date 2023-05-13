@@ -7,14 +7,19 @@
   <title>Document</title>
 </head>
 <body>
-<h1>
 
 <?php
-$w = "World";
-echo "Hello " . $w;
+const STATUS_PAID = "paid";
+
+echo STATUS_PAID;
+
+$name = "<p>Gio</p>";
+
+$name = "<p>Joe</p>";
+
+echo $name;
 ?>
 
-</h1>
 <p>first paragraph.</p>
 
 </body>
