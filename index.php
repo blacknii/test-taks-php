@@ -11,13 +11,20 @@
 <?php
 const STATUS_PAID = "paid";
 
-echo STATUS_PAID;
+echo var_dump(STATUS_PAID);
 
 $name = "<p>Gio</p>";
 
 $name = "<p>Joe</p>";
 
-echo $name;
+$isComplite = true;
+
+echo "</br></br>" . gettype($isComplite);
+if ($isComplite) {
+  echo "<p> YES </p>";
+} else {
+  echo "<p> NO </p>";
+}
 ?>
 
 <p>first paragraph.</p>
