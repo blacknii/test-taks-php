@@ -7,30 +7,30 @@ class Game
   public function roll(int $pins): void
   {
     $this->rolls[] = $pins;
-    echo var_dump($this->rolls);
+    // echo var_dump($this->rolls);
   }
 
   public function getScore(): int
   {
     $score = 0;
-    $frameIndex = 0;
+    $throwIndex = 0;
     $numberOfRolls = count($this->rolls);
 
-    echo "number of rolls = " . $numberOfRolls . "\n";
-    echo "frameIndex = " . $frameIndex . "\n";
-
-    for ($frame = 0; $frameIndex < $numberOfRolls - 1; $frame++) {
-      if ($this->isStrike($frameIndex)) {
-        $score += 10 + $this->strikeBonus($frameIndex);
-        $frameIndex++;
-      } elseif ($this->isSpare($frameIndex)) {
-        $score += 10 + $this->spareBonus($frameIndex);
-        $frameIndex += 2;
+    for ($frame = 0; $throwIndex < $numberOfRolls - 1; $frame++) {
+      if ($this->isStrike($throwIndex)) {
+        if ($frame >= 10) {
+          // $score += 10;
+        } else {
+          $score += 10 + $this->strikeBonus($throwIndex);
+        }
+        $throwIndex++;
+      } elseif ($this->isSpare($throwIndex)) {
+        $score += 10 + $this->spareBonus($throwIndex);
+        $throwIndex += 2;
       } else {
-        $score += $this->sumOfPinsInFrame($frameIndex);
-        $frameIndex += 2;
+        $score += $this->sumOfPinsInFrame($throwIndex);
+        $throwIndex += 2;
       }
-      echo "frameIndex = " . $frameIndex . "\n";
     }
 
     return $score;
