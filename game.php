@@ -16,16 +16,21 @@ class Game
     $throwIndex = 0;
     $numberOfRolls = count($this->rolls);
 
-    for ($frame = 0; $throwIndex < $numberOfRolls - 1; $frame++) {
+    for ($frame = 0; $throwIndex < $numberOfRolls; $frame++) {
       if ($this->isStrike($throwIndex)) {
-        if ($frame >= 10) {
-          // $score += 10;
+        if ($frame >= 9) {
+          $score += 10;
         } else {
           $score += 10 + $this->strikeBonus($throwIndex);
         }
+
         $throwIndex++;
       } elseif ($this->isSpare($throwIndex)) {
-        $score += 10 + $this->spareBonus($throwIndex);
+        if ($frame >= 9) {
+          $score += 10;
+        } else {
+          $score += 10 + $this->spareBonus($throwIndex);
+        }
         $throwIndex += 2;
       } else {
         $score += $this->sumOfPinsInFrame($throwIndex);
@@ -43,7 +48,11 @@ class Game
 
   private function isSpare(int $frameIndex): bool
   {
-    return $this->rolls[$frameIndex] + $this->rolls[$frameIndex + 1] == 10;
+    if (!isset($this->rolls[$frameIndex + 1])) {
+      return false;
+    } else {
+      return $this->rolls[$frameIndex] + $this->rolls[$frameIndex + 1] == 10;
+    }
   }
 
   private function strikeBonus(int $frameIndex): int
