@@ -6,15 +6,20 @@ class Game
 
   public function roll(int $pins): void
   {
-    $this->rolls[$this->currentRoll++] = $pins;
+    $this->rolls[] = $pins;
+    echo var_dump($this->rolls);
   }
 
   public function getScore(): int
   {
     $score = 0;
     $frameIndex = 0;
+    $numberOfRolls = count($this->rolls);
 
-    for ($frame = 0; $frame < 10; $frame++) {
+    echo "number of rolls = " . $numberOfRolls . "\n";
+    echo "frameIndex = " . $frameIndex . "\n";
+
+    for ($frame = 0; $frameIndex < $numberOfRolls - 1; $frame++) {
       if ($this->isStrike($frameIndex)) {
         $score += 10 + $this->strikeBonus($frameIndex);
         $frameIndex++;
@@ -25,6 +30,7 @@ class Game
         $score += $this->sumOfPinsInFrame($frameIndex);
         $frameIndex += 2;
       }
+      echo "frameIndex = " . $frameIndex . "\n";
     }
 
     return $score;
@@ -37,25 +43,39 @@ class Game
 
   private function isSpare(int $frameIndex): bool
   {
-    return isset($this->rolls[$frameIndex], $this->rolls[$frameIndex + 1]) &&
-      $this->rolls[$frameIndex] + $this->rolls[$frameIndex + 1] == 10;
+    return $this->rolls[$frameIndex] + $this->rolls[$frameIndex + 1] == 10;
   }
 
   private function strikeBonus(int $frameIndex): int
   {
-    return $this->rolls[$frameIndex + 1] ??
-      (0 + $this->rolls[$frameIndex + 2] ?? 0);
+    $bonus = 0;
+    if (isset($this->rolls[$frameIndex + 1])) {
+      $bonus += $this->rolls[$frameIndex + 1];
+    }
+    if (isset($this->rolls[$frameIndex + 2])) {
+      $bonus += $this->rolls[$frameIndex + 2];
+    }
+    return $bonus;
   }
 
   private function spareBonus(int $frameIndex): int
   {
-    return $this->rolls[$frameIndex + 2] ?? 0;
+    if (isset($this->rolls[$frameIndex + 2])) {
+      return $this->rolls[$frameIndex + 2];
+    }
+    return 0;
   }
 
   private function sumOfPinsInFrame(int $frameIndex): int
   {
-    return $this->rolls[$frameIndex] ??
-      (0 + $this->rolls[$frameIndex + 1] ?? 0);
+    $sum = 0;
+    if (isset($this->rolls[$frameIndex])) {
+      $sum += $this->rolls[$frameIndex];
+    }
+    if (isset($this->rolls[$frameIndex + 1])) {
+      $sum += $this->rolls[$frameIndex + 1];
+    }
+    return $sum;
   }
 }
 ?>
