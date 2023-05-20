@@ -14,7 +14,7 @@ while ($frame <= 10) {
     if ($roll1 >= 0 && $roll1 <= 10) {
       $isRollValid = true;
     } else {
-      echo "Błąd - Rzut może mieć wartość od 1 do 10 podaj wartość jeszcze raz." .
+      echo "Błąd - Rzut może mieć wartość od 0 do 10 podaj wartość jeszcze raz." .
         "\n";
     }
   }
@@ -32,7 +32,7 @@ while ($frame <= 10) {
       if ($roll2 >= 0 && $roll2 <= $roll2Max) {
         $isRollValid = true;
       } else {
-        echo "Błąd - Rzut może mieć wartość od 1 do " .
+        echo "Błąd - Rzut może mieć wartość od 0 do " .
           $roll2Max .
           " podaj wartość jeszcze raz." .
           "\n";
@@ -51,7 +51,7 @@ while ($frame <= 10) {
         if ($extraRoll >= 0 && $extraRoll <= $extraRollMax) {
           $isRollValid = true;
         } else {
-          echo "Błąd - Rzut może mieć wartość od 1 do " .
+          echo "Błąd - Rzut może mieć wartość od 0 do " .
             $extraRollMax .
             " podaj wartość jeszcze raz." .
             "\n";
