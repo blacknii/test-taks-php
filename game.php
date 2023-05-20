@@ -7,7 +7,6 @@ class Game
   public function roll(int $pins): void
   {
     $this->rolls[] = $pins;
-    // echo var_dump($this->rolls);
   }
 
   public function getScore(): int

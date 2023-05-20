@@ -1,5 +1,4 @@
 <?php
-
 require_once "game.php";
 
 $game = new Game();
@@ -29,12 +28,12 @@ while ($frame <= 10) {
     while (!$isRollValid) {
       echo "Frame {$frame}, rzut 2: ";
       $roll2 = (int) fgets(STDIN);
-      if ($roll2 >= 0 && $roll2 <= 10 - ($roll1 % 10)) {
+      $roll2Max = 10 - ($roll1 % 10);
+      if ($roll2 >= 0 && $roll2 <= $roll2Max) {
         $isRollValid = true;
       } else {
         echo "Błąd - Rzut może mieć wartość od 1 do " .
-          10 -
-          ($roll1 % 10) .
+          $roll2Max .
           " podaj wartość jeszcze raz." .
           "\n";
       }
@@ -48,12 +47,12 @@ while ($frame <= 10) {
       while (!$isRollValid) {
         echo "Frame {$frame}, dodatkowy rzut: ";
         $extraRoll = (int) fgets(STDIN);
-        if ($extraRoll >= 0 && $extraRoll <= $roll1 - ($roll2 % 10)) {
+        $extraRollMax = ($roll1 + $roll2) % 10 ? 10 - $roll2 : 10;
+        if ($extraRoll >= 0 && $extraRoll <= $extraRollMax) {
           $isRollValid = true;
         } else {
           echo "Błąd - Rzut może mieć wartość od 1 do " .
-            $roll1 -
-            ($roll2 % 10) .
+            $extraRollMax .
             " podaj wartość jeszcze raz." .
             "\n";
         }
